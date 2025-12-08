@@ -1,0 +1,106 @@
+name: Weekly Security Scan
+
+on:
+  schedule:
+    # Run every Monday at 00:00 UTC
+    - cron: '0 0 * * 1'
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: Pull OWASP ZAP Docker Image
+        run: docker pull zaproxy/zap-stable
+      
+      - name: Run ZAP Baseline Scan
+        run: |
+          mkdir -p security-audit/reports
+          docker run --rm \
+            -v ${{ github.workspace }}/security-audit/reports:/zap/wrk/:rw \
+            zaproxy/zap-stable zap-baseline.py \
+            -t https://cyberguardng.ca \
+            -r baseline-$(date +%Y-%m-%d).html \
+            -J baseline-$(date +%Y-%m-%d).json \
+            -I
+        continue-on-error: true
+      
+      - name: Parse Scan Results
+        id: parse
+        run: |
+          REPORT_FILE=$(ls -t security-audit/reports/baseline-*.json | head -1)
+          HIGH_COUNT=$(jq '[.site[].alerts[] | select(.riskcode == "3")] | length' $REPORT_FILE)
+          MEDIUM_COUNT=$(jq '[.site[].alerts[] | select(.riskcode == "2")] | length' $REPORT_FILE)
+          LOW_COUNT=$(jq '[.site[].alerts[] | select(.riskcode == "1")] | length' $REPORT_FILE)
+          
+          echo "high=$HIGH_COUNT" >> $GITHUB_OUTPUT
+          echo "medium=$MEDIUM_COUNT" >> $GITHUB_OUTPUT
+          echo "low=$LOW_COUNT" >> $GITHUB_OUTPUT
+      
+      - name: Create Issue if Vulnerabilities Found
+        if: steps.parse.outputs.high != '0' || steps.parse.outputs.medium != '0'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const high = ${{ steps.parse.outputs.high }};
+            const medium = ${{ steps.parse.outputs.medium }};
+            const low = ${{ steps.parse.outputs.low }};
+            
+            const title = `🔒 Security Scan: ${high} High, ${medium} Medium, ${low} Low Risk Findings`;
+            const body = `## Weekly Security Scan Results
+            
+            **Scan Date:** ${new Date().toISOString().split('T')[0]}
+            **Target:** https://cyberguardng.ca
+            **Tool:** OWASP ZAP Baseline Scan
+            
+            ### Summary
+            - 🔴 **High Risk:** ${high}
+            - 🟡 **Medium Risk:** ${medium}
+            - 🟢 **Low Risk:** ${low}
+            
+            ### Action Required
+            ${high > 0 ? '⚠️ High-risk vulnerabilities require immediate attention!' : 'Review medium-risk findings and prioritize remediation.'}
+            
+            ### Report Location
+            See \`security-audit/reports/\` for detailed HTML and JSON reports.
+            
+            ### Next Steps
+            1. Review the detailed report
+            2. Document findings in \`findings/\` directory
+            3. Implement remediation
+            4. Re-scan to verify fixes
+            
+            ---
+            *This issue was automatically created by the Weekly Security Scan workflow.*
+            `;
+            
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: title,
+              body: body,
+              labels: ['security', 'automated-scan']
+            });
+      
+      - name: Upload Reports as Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-reports-${{ github.run_number }}
+          path: security-audit/reports/
+          retention-days: 90
+      
+      - name: Commit Reports to Repository
+        run: |
+          git config --local user.email "security@cyberguardng.ca"
+          git config --local user.name "Security Bot"
+          git add security-audit/reports/
+          git commit -m "chore: Add automated security scan results [skip ci]" || echo "No changes to commit"
+          git push
