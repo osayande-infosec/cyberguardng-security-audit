@@ -74,9 +74,9 @@ docker --version
 ### Reports Location
 All scan reports are saved in 
 eports/ directory:
-- aseline-YYYY-MM-DD.html - Quick scan results
-- ull-scan-YYYY-MM-DD.html - Comprehensive findings
-- pi-scan-YYYY-MM-DD.html - Backend security assessment
+- Baseline-YYYY-MM-DD.html - Quick scan results
+- Full-scan-YYYY-MM-DD.html - Comprehensive findings
+- Api-scan-YYYY-MM-DD.html - Backend security assessment
 
 ---
 
@@ -147,7 +147,7 @@ graph LR
 
 ## 📝 Findings Documentation
 
-Each OWASP Top 10 category has a dedicated findings document in the indings/ directory.
+Each OWASP Top 10 category has a dedicated findings document in the findings/ directory.
 
 ---
 
