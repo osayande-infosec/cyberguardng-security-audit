@@ -1,6 +1,6 @@
-# CyberGuardNG Security Audit - OWASP Top 10 Assessment
+﻿# CyberGuardNG Security Audit - OWASP Top 10 Assessment
 
-## 🎯 Project Overview
+## ðŸŽ¯ Project Overview
 
 This repository documents a comprehensive security assessment of **cyberguardng.ca**, a production cybersecurity consulting website. The audit systematically tests for all OWASP Top 10 vulnerabilities using industry-standard tools and methodologies.
 
@@ -11,7 +11,7 @@ This repository documents a comprehensive security assessment of **cyberguardng.
 
 ---
 
-## 🔍 Methodology
+## ðŸ” Methodology
 
 ### Tools Used
 - **OWASP ZAP** (Zed Attack Proxy) - Automated vulnerability scanner
@@ -28,26 +28,26 @@ This repository documents a comprehensive security assessment of **cyberguardng.
 
 ---
 
-## 📊 OWASP Top 10 (2021) Coverage
+## ðŸ“Š OWASP Top 10 (2021) Coverage
 
 | Risk | Category | Status | Severity | Findings |
 |------|----------|--------|----------|----------|
-| A01 | Broken Access Control | ✅ Tested | None | [Details](findings/A01-broken-access-control.md) |
-| A02 | Cryptographic Failures | ✅ Tested | None | [Details](findings/A02-cryptographic-failures.md) |
-| A03 | Injection | ✅ Tested | None | [Details](findings/A03-injection.md) |
-| A04 | Insecure Design | ✅ Tested | None | [Details](findings/A04-insecure-design.md) |
-| A05 | Security Misconfiguration | ✅ Tested | Low | [Details](findings/A05-security-misconfiguration.md) |
-| A06 | Vulnerable Components | ✅ Tested | None | [Details](findings/A06-vulnerable-components.md) |
-| A07 | Authentication Failures | ✅ Tested | None | [Details](findings/A07-authentication-failures.md) |
-| A08 | Software/Data Integrity | ✅ Tested | None | [Details](findings/A08-software-data-integrity.md) |
-| A09 | Logging & Monitoring | ✅ Tested | Medium | [Details](findings/A09-logging-monitoring.md) |
-| A10 | SSRF | ✅ Tested | None | [Details](findings/A10-ssrf.md) |
+| A01 | Broken Access Control | âœ… Tested | None | [Details](findings/A01-broken-access-control.md) |
+| A02 | Cryptographic Failures | âœ… Tested | None | [Details](findings/A02-cryptographic-failures.md) |
+| A03 | Injection | âœ… Tested | None | [Details](findings/A03-injection.md) |
+| A04 | Insecure Design | âœ… Tested | None | [Details](findings/A04-insecure-design.md) |
+| A05 | Security Misconfiguration | âœ… Tested | Low | [Details](findings/A05-security-misconfiguration.md) |
+| A06 | Vulnerable Components | âœ… Tested | None | [Details](findings/A06-vulnerable-components.md) |
+| A07 | Authentication Failures | âœ… Tested | None | [Details](findings/A07-authentication-failures.md) |
+| A08 | Software/Data Integrity | âœ… Tested | None | [Details](findings/A08-software-data-integrity.md) |
+| A09 | Logging & Monitoring | âœ… Tested | Medium | [Details](findings/A09-logging-monitoring.md) |
+| A10 | SSRF | âœ… Tested | None | [Details](findings/A10-ssrf.md) |
 
-**Overall Risk Rating:** 🟢 **LOW**
+**Overall Risk Rating:** ðŸŸ¢ **LOW**
 
 ---
 
-## 🚀 Quick Start
+## ðŸš€ Quick Start
 
 ### Prerequisites
 ```powershell
@@ -83,9 +83,9 @@ All scan reports are saved in `reports/` directory:
 
 ---
 
-## 🔒 Security Posture Summary
+## ðŸ”’ Security Posture Summary
 
-### ✅ Strengths
+### âœ… Strengths
 - **HTTPS Everywhere**: Strict-Transport-Security with 1-year max-age
 - **Content Security Policy**: Comprehensive CSP headers blocking XSS
 - **Rate Limiting**: KV-backed throttling on all endpoints (10-20 req/min)
@@ -95,13 +95,13 @@ All scan reports are saved in `reports/` directory:
 - **Modern Framework**: React 19.2.1 (patched against 2025 CVEs)
 - **Secure Headers**: X-Frame-Options, X-Content-Type-Options, Referrer-Policy
 
-### ⚠️ Areas for Improvement
+### âš ï¸ Areas for Improvement
 - **Logging**: Limited structured logging for security events
 - **Monitoring**: No real-time alerting for anomalous behavior
 - **Session Management**: No user sessions implemented yet
 - **API Documentation**: OpenAPI spec not published
 
-### 🎯 Recommendations
+### ðŸŽ¯ Recommendations
 1. Implement centralized logging (Cloudflare Logs or Datadog)
 2. Add security event monitoring with alerting
 3. Document API endpoints with OpenAPI 3.0 spec
@@ -110,7 +110,7 @@ All scan reports are saved in `reports/` directory:
 
 ---
 
-## 📈 Scan Execution Timeline
+## ðŸ“ˆ Scan Execution Timeline
 
 ```mermaid
 graph LR
@@ -125,7 +125,7 @@ graph LR
 
 ---
 
-## 🛠️ Technical Details
+## ðŸ› ï¸ Technical Details
 
 ### Application Architecture
 - **Frontend**: React 19.2.1 SPA with Vite bundler
@@ -149,7 +149,7 @@ graph LR
 
 ---
 
-## 📝 Findings Documentation
+## ðŸ“ Findings Documentation
 
 Each OWASP Top 10 category has a dedicated findings document:
 
@@ -180,7 +180,7 @@ Each OWASP Top 10 category has a dedicated findings document:
 
 ---
 
-## 🔄 Continuous Security
+## ðŸ”„ Continuous Security
 
 ### GitHub Actions Workflow
 Automated weekly security scans run every Monday at 00:00 UTC:
@@ -197,7 +197,7 @@ Automated weekly security scans run every Monday at 00:00 UTC:
 
 ---
 
-## 📚 References
+## ðŸ“š References
 
 - [OWASP Top 10 (2021)](https://owasp.org/Top10/)
 - [OWASP ZAP Documentation](https://www.zaproxy.org/docs/)
@@ -206,7 +206,7 @@ Automated weekly security scans run every Monday at 00:00 UTC:
 
 ---
 
-## 📧 Contact
+## ðŸ“§ Contact
 
 For questions about this security audit:
 - **Email**: security@cyberguardng.ca
@@ -215,8 +215,9 @@ For questions about this security audit:
 
 ---
 
-## 📄 License
+## ðŸ“„ License
 
 This security assessment documentation is released under MIT License.
 
 **Disclaimer**: This audit was performed on a live production system with proper authorization. Do not run these scans against systems you don't own or have explicit permission to test.
+
