@@ -4,9 +4,9 @@
 
 This repository documents a comprehensive security assessment of **cyberguardng.ca**, a production cybersecurity consulting website. The audit systematically tests for all OWASP Top 10 vulnerabilities using industry-standard tools and methodologies.
 
-**Target Application:** https://cyberguardng.ca
-**Technology Stack:** React 19.2.1, Cloudflare Pages, Cloudflare Functions
-**Assessment Date:** December 2025
+**Target Application:** https://cyberguardng.ca  
+**Technology Stack:** React 19.2.1, Cloudflare Pages, Cloudflare Functions  
+**Assessment Date:** December 2025  
 **Auditor:** CyberGuardNG Security Team
 
 ---
@@ -72,10 +72,11 @@ docker --version
 .\zap-api-scan.ps1 -target https://cyberguardng.ca
 \
 ### Reports Location
-All scan reports are saved in eports/\ directory:
-- \aseline-YYYY-MM-DD.html\ - Quick scan results
-- \ull-scan-YYYY-MM-DD.html\ - Comprehensive findings
-- \pi-scan-YYYY-MM-DD.html\ - Backend security assessment
+All scan reports are saved in 
+eports/ directory:
+- aseline-YYYY-MM-DD.html - Quick scan results
+- ull-scan-YYYY-MM-DD.html - Comprehensive findings
+- pi-scan-YYYY-MM-DD.html - Backend security assessment
 
 ---
 
@@ -127,11 +128,14 @@ graph LR
 - **Backend**: Cloudflare Pages Functions (serverless)
 - **Database**: Cloudflare D1 (SQLite)
 - **CDN**: Cloudflare Pages with edge caching
-- **APIs**: RESTful endpoints at \/chat\, \/contact\, \/consent-log
+- **APIs**: RESTful endpoints at /chat, /contact, /consent-log
+
 ### Security Controls
 - **Rate Limiting**: Cloudflare KV-backed sliding window
 - **CAPTCHA**: Turnstile (site key: 0x4AAAAAACFV98o85pvOFYlJ)
-- **CSP**: \default-src 'self'; script-src 'self' 'unsafe-inline'; connect-src 'self' https://api.openai.com https://api.web3forms.com- **HSTS**: \max-age=31536000; includeSubDomains; preload
+- **CSP**: default-src 'self'; script-src 'self' 'unsafe-inline'; connect-src 'self' https://api.openai.com https://api.web3forms.com
+- **HSTS**: max-age=31536000; includeSubDomains; preload
+
 ### Attack Surface
 - 3 public API endpoints (chat, contact, consent-log)
 - 7 static pages (Home, Services, Resources, Contact, Blog, Case Studies, About)
@@ -141,9 +145,9 @@ graph LR
 
 ---
 
-## 📁 Findings Documentation
+## 📝 Findings Documentation
 
-Each OWASP Top 10 category has a dedicated findings document.
+Each OWASP Top 10 category has a dedicated findings document in the indings/ directory.
 
 ---
 
@@ -177,8 +181,10 @@ For questions about this security audit:
 
 ---
 
-## 📄 License
+## 📜 License
 
-This security assessment documentation is released under MIT License.
+This security assessment documentation is released under the **Apache License 2.0**.
+
+See the [LICENSE](LICENSE) file for full license text.
 
 **Disclaimer**: This audit was performed on a live production system with proper authorization. Do not run these scans against systems you don't own or have explicit permission to test.
